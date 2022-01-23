@@ -1,0 +1,25 @@
+{
+  "name": "payzer-v2-server",
+  "version": "1.0.0",
+  "description": "socket and file uploading server for payzer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
+  },
+  "keywords": [],
+  "author": "Suraj Vijay",
+  "license": "ISC",
+  "maintainers": [
+    "Suraj Vijay"
+  ],
+  "dependencies": {
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "socket.io": "^4.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
