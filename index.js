@@ -1,20 +1,12 @@
 require("dotenv").config();
-const { createServer } = require("http");
-const express = require("express");
-const { Server } = require("socket.io");
-const morgan = require("morgan");
 
 // Custom
-const morganConfig = require("./src/configs/morgan.config");
+const { app, io, httpServer } = require("./src/utils/server.utils");
+const appyMiddleWares = require("./src/utils/middleware.utils");
 const imagesRoute = require("./src/routes/images.route");
 
-const app = express();
-const httpServer = createServer(app);
-
-const io = new Server(httpServer);
-
-app.use(morgan(morganConfig));
-app.use(express.json());
+// middlewares
+appyMiddleWares(app);
 
 app.use("/images", imagesRoute);
 
