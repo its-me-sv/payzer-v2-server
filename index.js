@@ -2,13 +2,14 @@ require("dotenv").config();
 
 // Custom
 const { app, io, httpServer } = require("./src/utils/server.utils");
-const appyMiddleWares = require("./src/utils/middleware.utils");
-const imagesRoute = require("./src/routes/images.route");
+const combineMiddlewares = require("./src/utils/middleware.utils");
+const combineRoutes = require("./src/routes");
 
 // middlewares
-appyMiddleWares(app);
+combineMiddlewares(app);
 
-app.use("/images", imagesRoute);
+// routes
+combineRoutes(app);
 
 io.on("connection", socket => {
     console.log(`[SERVER] ${socket.id} Connected`);
