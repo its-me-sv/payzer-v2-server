@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 // Custom
-const multerUploads = require("../utils/multer.utils");
+const { multerUploads, multerError } = require("../utils/multer.utils");
 const convertToDataURI = require("../utils/to-uri.utils");
 const {
     uploadImage,
@@ -9,8 +9,13 @@ const {
 } =require("../utils/cloudinary.utils");
 const { ImagesDeleteSchema } = require("../utils/joi.utils");
 
+// Bytes
+const maxSize = 7 * 1048576;
+
 router.post("/upload", multerUploads, async (req, res) => {
     try {
+        if (req.file.size > maxSize)
+            return res.status(400).send("File size too large");
         const imageUri = convertToDataURI(req.file);
         const uploadResult = await uploadImage(imageUri);
         return res.status(200).send(uploadResult);
