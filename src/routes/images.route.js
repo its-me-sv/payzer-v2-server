@@ -7,6 +7,7 @@ const {
     uploadImage,
     deleteImage
 } =require("../utils/cloudinary.utils");
+const { ImagesDeleteSchema } = require("../utils/joi.utils");
 
 router.post("/upload", multerUploads, async (req, res) => {
     try {
@@ -20,11 +21,12 @@ router.post("/upload", multerUploads, async (req, res) => {
 
 router.delete("/delete", async (req, res) => {
     try {
+        await ImagesDeleteSchema.validateAsync(req.body);
         const publicId = req.body.imageURL.split('/').slice(-2).join('/').split('.')[0];
         const deletedResponse = await deleteImage(publicId);
         return res.status(200).json(deletedResponse);
     } catch (err) {
-        return res.status(500).json(err);
+        return res.status((err.isJoi && 400) || 500).json(err);
     }
 });
 
