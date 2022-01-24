@@ -1,5 +1,5 @@
 const morganConfig = (tokens, req, res) => {
-    return "[REST API] " + [
+    return "[SERVER] " + [
         tokens.method(req, res),
         tokens.url(req, res),
         tokens.status(req, res),
